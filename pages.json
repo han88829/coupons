@@ -1,18 +1,35 @@
 {
-	"pages": [{
-		"path": "pages/index/index"
-	}],
+	"pages": [
+		{
+			"path": "pages/menu/index"
+		},
+		{
+			"path": "pages/index/index"
+		},
+		{
+			"path": "pages/lele/index"
+		},
+		{
+			"path": "pages/else/index"
+		},
+		{
+			"path": "pages/taobao/index",
+			"style": {
+				"navigationBarTitleText": "淘宝优惠券搜索"
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "外卖专享优惠",
-		"navigationBarBackgroundColor": "#007AFF",
+		"navigationBarBackgroundColor": "#ff5500",
 		"backgroundColor": "#FFFFFF",
 		"titleView": false,
 		"h5": {
 			"titleNView": false
 		}
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
 		"list": [
 			{

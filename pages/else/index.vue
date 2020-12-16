@@ -1,11 +1,5 @@
 <template>
   <view class="container">
-    <v-tabs
-      v-model="current"
-      :tabs="tabs"
-      @change="changeTab"
-      class="tab"
-    ></v-tabs>
     <view class="coupon" ref="coupon">
       <view
         class="item"
@@ -41,11 +35,10 @@ export default {
       tabs: [],
       couponList: [],
       coupons: [],
-      menu: false,
     };
   },
-  created(e) {
-    this.getData(0, 0);
+  onLoad(e) {
+    this.getData(0, e.tabId || 0);
     uni.showShareMenu({
       menus: ["shareAppMessage", "shareTimeline"],
     });
@@ -54,80 +47,50 @@ export default {
     var messages = [
       {
         title: "美团饿了么大额红包，每日可领！",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "吃了这么多年外卖，你知道这个秘密吗？",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "这样点外卖，一年省下一个亿",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "点外卖前先领券，吃霸王餐",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "美团饿了么内部优惠券，手慢无",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "点外卖不用优惠券，你就out了",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "外卖不为人知的秘密，点这解密",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "震惊！小伙点外卖竟然花了1分钱",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
       {
         title: "从这点外卖，你也可以吃霸王餐",
-        path: "/pages/index/index",
+        path: "/pages/lele/index",
       },
     ];
     return messages[Math.floor(Math.random() * messages.length)];
   },
   methods: {
     async getData(_tabId, _tabeId) {
-      const res = await request({ url: "/api/take/lst" });
+      const res = await request({ url: "/api/take/elm", data: { id: 2 } });
 
-      this.tabs = res.data.takeTitle;
-      this.coupons = res.data.take;
-      this.menu = res.menu;
-      let tabId = _tabId;
-
-      for (let i in this.tabs) {
-        if (tabId == this.tabs[i].tabId) {
-          this.current = parseInt(i);
-        }
-      }
-
-      this.changeTab(this.current);
-    },
-    changeTab(index) {
-      this.couponList = [];
-
-      if (index == 0) {
-        this.couponList = this.coupons;
-      } else {
-        for (let i in this.coupons) {
-          if (this.coupons[i].tabId == this.tabs[index].tabId) {
-            this.couponList.push(this.coupons[i]);
-          }
-        }
-      }
-      //#ifdef H5
-      this.$nextTick(() => {
-        this.$refs.coupon.scrollTop = 0;
-      });
-      //#endif
+      this.couponList = res.data;
     },
     toCoupon(i) {
-      console.log(this.couponList[i]);
       //h5
       //#ifdef H5
       window.location.href = this.couponList[i].url;
@@ -158,18 +121,8 @@ page {
   font-size: 14px;
   line-height: 24px;
   position: relative;
-  padding-bottom: 90rpx;
-
-  .tab {
-    position: fixed;
-    top: var(--window-top);
-    left: 0;
-    z-index: 9999;
-  }
 
   .coupon {
-    padding-top: 200rpx;
-
     .item {
       background-color: #ffffff;
       margin: 30rpx;

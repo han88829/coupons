@@ -52,6 +52,7 @@
             "treeShaking" : {
                 "enable" : true
             }
-        }
+        },
+        "domain" : "https://take.h88829.top"
     }
 }
